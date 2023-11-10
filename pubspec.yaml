@@ -30,6 +30,9 @@ dependencies:
   sqflite: ^2.3.0
   path: ^1.8.0
   form_field_validator: ^1.1.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   auto_route_generator: ^7.1.1
@@ -48,6 +51,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  generate: true
   # assets:
   #   - test/features/dashboard/data/datasource/

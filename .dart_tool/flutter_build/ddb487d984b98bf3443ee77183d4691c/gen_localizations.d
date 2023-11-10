@@ -1,0 +1,1 @@
+ /Users/iio/Project/test01/.dart_tool/flutter_gen/gen_l10n/app_localizations_ja.dart /Users/iio/Project/test01/.dart_tool/flutter_gen/gen_l10n/app_localizations.dart:  /Users/iio/Project/test01/l10n.yaml /Users/iio/Project/test01/lib/l10n/app_ja.arb

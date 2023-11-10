@@ -610,6 +610,10 @@ flutter
 3.0
 file:///Users/iio/Project/flutter-clean-architecture-riverpod/lib/flutter/packages/flutter/
 file:///Users/iio/Project/flutter-clean-architecture-riverpod/lib/flutter/packages/flutter/lib/
+flutter_localizations
+3.0
+file:///Users/iio/Project/flutter-clean-architecture-riverpod/lib/flutter/packages/flutter_localizations/
+file:///Users/iio/Project/flutter-clean-architecture-riverpod/lib/flutter/packages/flutter_localizations/lib/
 flutter_test
 3.0
 file:///Users/iio/Project/flutter-clean-architecture-riverpod/lib/flutter/packages/flutter_test/

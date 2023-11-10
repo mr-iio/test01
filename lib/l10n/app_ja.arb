@@ -1,0 +1,21 @@
+{
+    "@@locale": "ja",
+    "termsOfService": "利用規約",
+    "mainTitle": "ブックマーク一覧",
+    "deleteConf": "削除しますか?",
+    "cancel": "キャンセル",
+    "yes": "はい",
+    "noDataOrLoading": "何も登録されていません、若しくはロード中かも",
+    "addTitle": "ブックマーク登録",
+    "title": "タイトル",
+    "url": "URL",
+    "required": "を入力してください",
+    "tooLong": "が長すぎます",
+    "regist": "登録",
+    "successRegist": "の登録に成功しました",
+    "failureRegist": "の登録に失敗しました",
+    "back": "戻る",
+    "forward": "進む",
+    "reload": "更新",
+    "close": "終了"
+}
