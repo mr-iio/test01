@@ -6,15 +6,15 @@
 	<dict>
 		<key>Headers/FLTWebViewFlutterPlugin.h</key>
 		<data>
-		elcyjBLummTXQxS2qpw1oTTs+1I=
+		+q4Fz5Lh7aEGOeO1O4Lt+CzTzVY=
 		</data>
 		<key>Headers/FWFDataConverters.h</key>
 		<data>
-		K7Cp2GK9C4AHgoBnq605gB9ZDlw=
+		UzBHnbdhYPqe4K276Cnl6Vlyhzs=
 		</data>
 		<key>Headers/FWFGeneratedWebKitApis.h</key>
 		<data>
-		lxODDjZ1kWWYBK7fUjc2v+9tgpg=
+		9ONdSQZ/ir3x5lz6LHhag7Zbzmg=
 		</data>
 		<key>Headers/FWFHTTPCookieStoreHostApi.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/FWFInstanceManager_Test.h</key>
 		<data>
-		NDVnnvNl6BQga0cccQ92remkT7c=
+		UAUAwkLOWcsmKGM9lzRyyIUAOlQ=
 		</data>
 		<key>Headers/FWFNavigationDelegateHostApi.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/FWFObjectHostApi.h</key>
 		<data>
-		1gBWJ4e/YLsSaaOmuGosNyYYhaY=
+		Ukf6LNTmLzYE9qB5IE6t8CVmmSg=
 		</data>
 		<key>Headers/FWFPreferencesHostApi.h</key>
 		<data>
@@ -56,13 +56,21 @@
 		<data>
 		qSc7eznQWl4xtFyCYXlDgJwErcE=
 		</data>
+		<key>Headers/FWFURLHostApi.h</key>
+		<data>
+		VJ9LThZCQgf7W4e6KCQ1prbc05o=
+		</data>
 		<key>Headers/FWFUserContentControllerHostApi.h</key>
 		<data>
 		DIt1/KkbENmh34oGQcam7nbgr8c=
 		</data>
 		<key>Headers/FWFWebViewConfigurationHostApi.h</key>
 		<data>
-		mCAFGUg6FCgajtKNkr4HpDyUls0=
+		lV/+h2Nyj3tT2RtomXkfHsA0YQI=
+		</data>
+		<key>Headers/FWFWebViewFlutterWKWebViewExternalAPI.h</key>
+		<data>
+		DnnsTCnIp5mT1gW5gM3mIj1wdCY=
 		</data>
 		<key>Headers/FWFWebViewHostApi.h</key>
 		<data>
@@ -74,7 +82,7 @@
 		</data>
 		<key>Headers/webview-umbrella.h</key>
 		<data>
-		dRypBdw6DQhLIiRYsz0hs9xOhJY=
+		l9LJVAhYf6aEecj4T0nLf8N1cPo=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -91,21 +99,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QhaCSe99Puk/DwUSnOeDAWlxaUUwABzd49wwj9HptGI=
+			4f3K3pHe7Tx6qPcDh3FCmbEQPXG74JITZHUXhbfjHg0=
 			</data>
 		</dict>
 		<key>Headers/FWFDataConverters.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BeBRT0xbikNGgRGrQwRZiusXVQACQaHPhV/j1RLOUdU=
+			dGdWCyvWbASIeSCkDIDJYCaykOgZzOVJQgFWaemdof0=
 			</data>
 		</dict>
 		<key>Headers/FWFGeneratedWebKitApis.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8GxP7nAz95FHkPZfp9yIun8QaNC7AKpup2sPPXTzJ3Y=
+			KmhDmI9OsEskM6LLMTec3BZSHZE4udHCXdbjf2oq6Mk=
 			</data>
 		</dict>
 		<key>Headers/FWFHTTPCookieStoreHostApi.h</key>
@@ -126,7 +134,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QNTJHdwieKnCQW0Uc8HzoANb6CbBNxDPK2p9PL3lkzM=
+			cIoDeDYYYAQba/AJiyNmnfoVxabWQOvdZvdPNgBR+SM=
 			</data>
 		</dict>
 		<key>Headers/FWFNavigationDelegateHostApi.h</key>
@@ -140,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			M9xZXCkzw9hyPCvTBqIU2IbJIdkBKBSeAue/BUv5dn4=
+			OWSXSowkMuRnmP59Juq9t6sP6N/kdH+0u8msvyNOpAo=
 			</data>
 		</dict>
 		<key>Headers/FWFPreferencesHostApi.h</key>
@@ -178,6 +186,13 @@
 			9lRRJXWMLgNvK6Bh/zMsl2tOZ7J4iRb0naOt6f6EB2Q=
 			</data>
 		</dict>
+		<key>Headers/FWFURLHostApi.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2enG/VL4ec/WSWsBr07rgCMRBxFaE9XPc0L4NIKkxFo=
+			</data>
+		</dict>
 		<key>Headers/FWFUserContentControllerHostApi.h</key>
 		<dict>
 			<key>hash2</key>
@@ -189,7 +204,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Wcytwr4dyTxVBJfAz5VrimDbxClSyXDS7XSPoc2kAhM=
+			mHi5+a/TeuIzhHe+YAEEJ3fk/rXISYoGhIT0YJVkOVY=
+			</data>
+		</dict>
+		<key>Headers/FWFWebViewFlutterWKWebViewExternalAPI.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eFicF/19JfR8Cs0wM2cwORHBvq9R8ZAngk4wXFKbk9g=
 			</data>
 		</dict>
 		<key>Headers/FWFWebViewHostApi.h</key>
@@ -210,7 +232,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			q5QwvRVpMG1G12Y23chlLVHHhBFGRPFsOsBpFD6OHTc=
+			uD3XGW1r5xkVM5mD8yTcvgJ/xO5p2TRn9vrxDhQelXA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

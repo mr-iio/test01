@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:test01/common/database_helper.dart';
+import 'package:test01/shared/database_helper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test01/shared/globals.dart';
+import 'package:test01/shared/provider.dart';
 
 // キャンセル時のアクション
 class AddCalcenAction extends StatefulWidget {
@@ -13,10 +16,16 @@ class AddCalcenAction extends StatefulWidget {
 class _AddCalcenActionState extends State<AddCalcenAction> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      child: Text(L10n.of(context).cancel),
-      onPressed: () {
-        Navigator.pop(context);
+    return Consumer(
+      builder: (context, ref, child) {
+        return TextButton(
+          child: Text(L10n.of(context).cancel),
+          onPressed: () {
+            ref.refresh(nameController.notifier).state;
+            ref.refresh(urlController.notifier).state;
+            Navigator.pop(context);
+          },
+        );
       },
     );
   }
@@ -24,47 +33,46 @@ class _AddCalcenActionState extends State<AddCalcenAction> {
 
 // 登録時のアクション
 class AddRegistAction extends StatefulWidget {
-  final TextEditingController nameController;
-  final TextEditingController urlController;
-  const AddRegistAction(
-      {Key? key, required this.nameController, required this.urlController})
-      : super(key: key);
-
+  const AddRegistAction({super.key});
   @override
   State<AddRegistAction> createState() => _AddRegistActionState();
 }
 
 class _AddRegistActionState extends State<AddRegistAction> {
   var name = '';
-  final key = const GlobalObjectKey<FormState>('FORM_KEY');
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      child: Text(L10n.of(context).regist),
-      onPressed: () {
-        name = widget.nameController.text;
-        // タイトルが空白の場合は代わりに'タイトル'を入力する
-        if (name == '') {
-          name = L10n.of(context).title;
-        }
-        if (key.currentState!.validate()) {
-          try {
-            saveValue(name, widget.urlController.text);
-          } on FormatException {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(name + L10n.of(context).failureRegist),
-              ),
-            );
-          }
-
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(name + L10n.of(context).successRegist),
-            ),
-          );
-        }
+    return Consumer(
+      builder: (context, ref, child) {
+        return TextButton(
+          child: Text(L10n.of(context).regist),
+          onPressed: () {
+            name = ref.read(nameController).text;
+            // タイトルが空白の場合は代わりに'タイトル'を入力する
+            if (name == '') {
+              name = L10n.of(context).title;
+            }
+            if (addKey.currentState!.validate()) {
+              try {
+                saveValue(name, ref.read(urlController).text);
+              } on FormatException {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(name + L10n.of(context).failureRegist),
+                  ),
+                );
+              }
+              ref.refresh(nameController.notifier).state;
+              ref.refresh(urlController.notifier).state;
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(name + L10n.of(context).successRegist),
+                ),
+              );
+            }
+          },
+        );
       },
     );
   }

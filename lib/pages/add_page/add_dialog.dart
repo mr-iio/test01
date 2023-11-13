@@ -11,22 +11,14 @@ class AddDialog extends StatefulWidget {
 }
 
 class _AddDialog extends State<AddDialog> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController urlController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(L10n.of(context).addTitle),
-      content: SingleChildScrollView(
-        child: AddColumn(
-            nameController: nameController, urlController: urlController),
+      content: const SingleChildScrollView(
+        child: AddColumn(),
       ),
-      actions: [
-        const AddCalcenAction(),
-        AddRegistAction(
-            nameController: nameController, urlController: urlController)
-      ],
+      actions: const [AddCalcenAction(), AddRegistAction()],
     );
   }
 }

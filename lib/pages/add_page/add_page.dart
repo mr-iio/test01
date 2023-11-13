@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test01/pages/add_page/add_dialog.dart';
+import 'package:test01/shared/globals.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -8,17 +9,11 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  final key = const GlobalObjectKey<FormState>('FORM_KEY');
-  var name = '';
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController urlController = TextEditingController();
-  RegExp urlReg = RegExp(r'https?://([\w-]+\.)+[\w-]+(/[\w-./?%&=#]*)?');
-
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: key,
-      child: const AddDialog(),
+    return const Form(
+      key: addKey,
+      child: AddDialog(),
     );
   }
 }
