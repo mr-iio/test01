@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test01/features/home_page/presentation/providers/bookmark_state.dart';
 import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
 
 class AddColumn extends StatefulWidget {
@@ -15,18 +16,19 @@ class _AddColumnState extends State<AddColumn> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final state = ref.watch(bookmarkNotifierProvider);
         return Column(children: [
           TextFormField(
             decoration: InputDecoration(
               labelText: L10n.of(context).title,
             ),
-            controller: ref.read(titleController.notifier).state,
+            controller: state.bookmark.title,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: L10n.of(context).url,
             ),
-            controller: ref.read(urlController.notifier).state,
+            controller: state.bookmark.url,
             validator: (value) {
               if (value == '') {
                 return L10n.of(context).url + L10n.of(context).required;

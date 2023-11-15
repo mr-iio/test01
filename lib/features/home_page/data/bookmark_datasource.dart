@@ -3,24 +3,26 @@ import 'package:test01/shared/data/database_helper.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 
 abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
-  Future<void> saveValue(String title, String url);
-  Future<void> deleteValue(String title, String url);
+  Future<void> saveValue(BookMarkController bookmark);
+  Future<void> deleteValue(BookMarkController bookmark);
   Future<List<BookMark>> fetchDataFromDatabase();
 }
 
 class BookmarkLocalDatasource extends BookmarkDatasource {
   @override
   // データベースに値を保存
-  Future<void> saveValue(String title, String url) async {
-    await database!.insert('saved_values', {'name': title, 'url': url},
+  Future<void> saveValue(BookMarkController bookmark) async {
+    await database!.insert(
+        'saved_values', {'name': bookmark.title.text, 'url': bookmark.url.text},
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   @override
 // データを削除
-  Future<void> deleteValue(String title, String url) async {
+  Future<void> deleteValue(BookMarkController bookmark) async {
     await database!.delete('saved_values',
-        where: 'name = ? AND url = ?', whereArgs: [title, url]);
+        where: 'name = ? AND url = ?',
+        whereArgs: [bookmark.title.text, bookmark.url.text]);
   }
 
   @override

@@ -5,16 +5,37 @@ import 'package:test01/features/home_page/presentation/providers/bookmark_state.
 import 'package:test01/shared/models/bookmark_models.dart';
 import 'package:flutter/material.dart';
 
-// final bookmarkNotifierProvider = NotifierProvider<BookmarkNotifier, BookmarkState>(BookmarkNotifier.new);
+final bookmarkNotifierProvider =
+    NotifierProvider<BookmarkNotifier, BookmarkState>(BookmarkNotifier.new);
 
-// class BookmarkNotifier extends Notifier<BookmarkState>{
-//   @override
-//   BookmarkState build (){
-//     return const BookmarkState.initial();
-//   }
+class BookmarkNotifier extends Notifier<BookmarkState> {
+  @override
+  BookmarkState build() {
+    return BookmarkState(
+        bookmark: BookMarkController(
+            title: TextEditingController(), url: TextEditingController()));
+  }
 
-//   Future<void>
-// }
+  Future<void> data() async {
+    final repository = ref.read(bookmarkDBProvider);
+    final List<BookMark> nextData = await repository.fetchDataFromDatabase();
+    state = BookmarkState(
+      bookmark: state.bookmark,
+      data: nextData,
+      selectedUrl: state.selectedUrl,
+    );
+  }
+
+  Future<void> save() async {
+    final repository = ref.read(bookmarkDBProvider);
+    await repository.saveValue(state.bookmark);
+  }
+
+  Future<void> delete() async {
+    final repository = ref.read(bookmarkDBProvider);
+    await repository.deleteValue(state.bookmark);
+  }
+}
 
 // final data = StateProvider<List<BookMark>>((ref) => []);
 final data = NotifierProvider<_Data, List<BookMark>>(_Data.new);
