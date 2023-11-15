@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test01/features/home_page/providers/home_page_provider.dart';
-import 'package:test01/features/web_page/widgets/body.dart';
-import 'package:test01/features/web_page/widgets/bottom_navigation_bar.dart';
+import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
+import 'package:test01/features/web_page/presentation/widgets/body.dart';
+import 'package:test01/features/web_page/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WebPage extends StatefulWidget {

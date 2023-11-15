@@ -1,6 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test01/features/home_page/domain/book_mark_provider.dart';
+import 'package:test01/features/home_page/domain/bookmark_repository.dart';
+import 'package:test01/features/home_page/presentation/providers/bookmark_state.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 import 'package:flutter/material.dart';
+
+// final bookmarkNotifierProvider = NotifierProvider<BookmarkNotifier, BookmarkState>(BookmarkNotifier.new);
+
+// class BookmarkNotifier extends Notifier<BookmarkState>{
+//   @override
+//   BookmarkState build (){
+//     return const BookmarkState.initial();
+//   }
+
+//   Future<void>
+// }
 
 // final data = StateProvider<List<BookMark>>((ref) => []);
 final data = NotifierProvider<_Data, List<BookMark>>(_Data.new);
@@ -22,11 +36,12 @@ class _SelectedUrl extends Notifier<String> {
   }
 }
 
-// final nameController = StateProvider((ref) => TextEditingController());
-final nameController = NotifierProvider<_NameController, TextEditingController>(
-    _NameController.new);
+// final titleController = StateProvider((ref) => TextEditingController());
+final titleController =
+    NotifierProvider<_TitleController, TextEditingController>(
+        _TitleController.new);
 
-class _NameController extends Notifier<TextEditingController> {
+class _TitleController extends Notifier<TextEditingController> {
   @override
   TextEditingController build() {
     return TextEditingController();
@@ -43,3 +58,18 @@ class _UrlController extends Notifier<TextEditingController> {
     return TextEditingController();
   }
 }
+
+final inputController = NotifierProvider<_InputController, BookMarkController>(
+    _InputController.new);
+
+class _InputController extends Notifier<BookMarkController> {
+  @override
+  BookMarkController build() {
+    return BookMarkController(
+        title: TextEditingController(), url: TextEditingController());
+  }
+}
+
+//domainで記述したproviderをいい感じにここで使う
+final bookmarkProvider =
+    Provider<BookmarkRepository>((ref) => ref.watch(bookmarkDBProvider));

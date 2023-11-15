@@ -1,4 +1,4 @@
-#Tue Nov 14 11:21:00 JST 2023
+#Wed Nov 15 14:22:47 JST 2023
 base.0=/Users/iio/Project/test01/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

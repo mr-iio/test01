@@ -20,7 +20,7 @@ class _AddColumnState extends State<AddColumn> {
             decoration: InputDecoration(
               labelText: L10n.of(context).title,
             ),
-            controller: ref.read(nameController.notifier).state,
+            controller: ref.read(titleController.notifier).state,
           ),
           TextFormField(
             decoration: InputDecoration(

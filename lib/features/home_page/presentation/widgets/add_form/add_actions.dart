@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
-import 'package:test01/features/home_page/data/database_helper.dart';
+import 'package:test01/features/home_page/data/bookmark_datasource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test01/shared/globals.dart';
 
@@ -21,7 +21,7 @@ class _AddCalcenActionState extends State<AddCalcenAction> {
         return TextButton(
           child: Text(L10n.of(context).cancel),
           onPressed: () {
-            ref.refresh(nameController.notifier).state;
+            ref.refresh(titleController.notifier).state;
             ref.refresh(urlController.notifier).state;
             Navigator.pop(context);
           },
@@ -39,7 +39,7 @@ class AddRegistAction extends StatefulWidget {
 }
 
 class _AddRegistActionState extends State<AddRegistAction> {
-  var name = '';
+  var title = '';
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -47,27 +47,29 @@ class _AddRegistActionState extends State<AddRegistAction> {
         return TextButton(
           child: Text(L10n.of(context).regist),
           onPressed: () {
-            name = ref.read(nameController).text;
+            title = ref.read(titleController).text;
             // タイトルが空白の場合は代わりに'タイトル'を入力する
-            if (name == '') {
-              name = L10n.of(context).title;
+            if (title == '') {
+              title = L10n.of(context).title;
             }
             if (addKey.currentState!.validate()) {
               try {
-                saveValue(name, ref.read(urlController).text);
+                ref
+                    .read(bookmarkProvider)
+                    .saveValue(title, ref.read(urlController).text);
               } on FormatException {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(name + L10n.of(context).failureRegist),
+                    content: Text(title + L10n.of(context).failureRegist),
                   ),
                 );
               }
-              ref.refresh(nameController.notifier).state;
+              ref.refresh(titleController.notifier).state;
               ref.refresh(urlController.notifier).state;
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(name + L10n.of(context).successRegist),
+                  content: Text(title + L10n.of(context).successRegist),
                 ),
               );
             }

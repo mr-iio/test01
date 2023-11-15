@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
 import 'package:test01/features/web_page/presentation/screens/web_page.dart';
-import 'package:test01/features/home_page/data/database_helper.dart';
+import 'package:test01/shared/data/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 
@@ -18,10 +18,15 @@ class HomeBodyState extends State<HomeBody> {
     return Consumer(
       builder: (context, ref, child) {
         Future(() async {
-          await initializeDatabase();
-          List<BookMark> result = await fetchDataFromDatabase();
-          ref.read(data.notifier).state = result;
+          //   await initializeDatabase();
+          //   List<BookMark> result = await fetchDataFromDatabase();
+          //   ref.watch(data.notifier).state = result;
+          ref.watch(bookmarkProvider).initializeDatabase();
+          List<BookMark> result =
+              await ref.watch(bookmarkProvider).fetchDataFromDatabase();
+          ref.watch(data.notifier).state = result;
         });
+
         final refData = ref.watch(data);
         return (refData.isNotEmpty)
             ? ListView.separated(
@@ -57,7 +62,7 @@ class HomeBodyState extends State<HomeBody> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  deleteValue(
+                                  ref.watch(bookmarkProvider).deleteValue(
                                       refData[index].title, refData[index].url);
                                   Navigator.of(context).pop();
                                 },
