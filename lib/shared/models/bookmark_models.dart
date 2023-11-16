@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class BookMark {
+  final int id;
   final String title;
   final String url;
-  const BookMark({this.title = '', this.url = ''});
+  const BookMark({this.id = 0, this.title = '', this.url = ''});
 }
 
 class BookMarkController {
@@ -13,6 +14,7 @@ class BookMarkController {
 }
 
 class BookMarkColumns {
+  static const String id = 'id';
   static const String title = 'name';
   static const String url = 'url';
 }

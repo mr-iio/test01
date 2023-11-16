@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
-import 'package:test01/features/home_page/data/bookmark_datasource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
 import 'package:test01/shared/globals.dart';
 
 // キャンセル時のアクション
@@ -18,11 +17,14 @@ class _AddCalcenActionState extends State<AddCalcenAction> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final stateRefresh = ref.refresh(bookmarkNotifierProvider);
         return TextButton(
           child: Text(L10n.of(context).cancel),
           onPressed: () {
-            ref.refresh(titleController.notifier).state;
-            ref.refresh(urlController.notifier).state;
+            // ref.refresh(titleController.notifier).state;
+            // ref.refresh(urlController.notifier).state;
+            stateRefresh.bookmark.title;
+            stateRefresh.bookmark.url;
             Navigator.pop(context);
           },
         );
@@ -40,23 +42,30 @@ class AddRegistAction extends StatefulWidget {
 
 class _AddRegistActionState extends State<AddRegistAction> {
   var title = '';
+  var url = '';
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final state = ref.watch(bookmarkNotifierProvider);
+        final stateNotifier = ref.watch(bookmarkNotifierProvider.notifier);
+        //なぜかstateRefreshでエラーが出る
+        // final stateRefresh = ref.refresh(bookmarkNotifierProvider);
         return TextButton(
           child: Text(L10n.of(context).regist),
           onPressed: () {
-            title = ref.read(titleController).text;
+            title = state.bookmark.title.text;
+            url = state.bookmark.url.text;
             // タイトルが空白の場合は代わりに'タイトル'を入力する
             if (title == '') {
               title = L10n.of(context).title;
             }
             if (addKey.currentState!.validate()) {
               try {
-                ref
-                    .read(bookmarkProvider)
-                    .saveValue(title, ref.read(urlController).text);
+                // ref
+                //     .read(bookmarkProvider)
+                //     .saveValue(title, ref.read(urlController).text);
+                stateNotifier.saveBookmark(state.bookmark);
               } on FormatException {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -64,8 +73,10 @@ class _AddRegistActionState extends State<AddRegistAction> {
                   ),
                 );
               }
-              ref.refresh(titleController.notifier).state;
-              ref.refresh(urlController.notifier).state;
+              // ref.refresh(titleController.notifier).state;
+              // ref.refresh(urlController.notifier).state;
+              // stateRefresh.bookmark;
+              ref.refresh(bookmarkNotifierProvider).bookmark;
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

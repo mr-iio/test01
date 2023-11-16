@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
 import 'package:test01/features/web_page/presentation/screens/web_page.dart';
-import 'package:test01/shared/data/database_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test01/shared/models/bookmark_models.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -17,35 +15,33 @@ class HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
+        final stateNotifier = ref.watch(bookmarkNotifierProvider.notifier);
+        final state = ref.watch(bookmarkNotifierProvider);
+        //   await initializeDatabase();
+        //   List<BookMark> result = await fetchDataFromDatabase();
+        //   ref.watch(data.notifier).state = result;
         Future(() async {
-          //   await initializeDatabase();
-          //   List<BookMark> result = await fetchDataFromDatabase();
-          //   ref.watch(data.notifier).state = result;
-          ref.watch(bookmarkProvider).initializeDatabase();
-          List<BookMark> result =
-              await ref.watch(bookmarkProvider).fetchDataFromDatabase();
-          ref.watch(data.notifier).state = result;
+          await stateNotifier.data();
         });
-
-        final refData = ref.watch(data);
-        return (refData.isNotEmpty)
+        return (state.data.isNotEmpty)
             ? ListView.separated(
-                itemCount: refData.length,
+                itemCount: state.data.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context, index) {
+                  final selectedBookmark = state.data[index];
                   return ListTile(
                     title: Text(
-                      refData[index].title,
+                      selectedBookmark.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    subtitle: Text(refData[index].url),
+                    subtitle: Text(selectedBookmark.url),
                     onTap: () {
-                      ref.read(selectedUrl.notifier).state = refData[index].url;
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const WebPage()));
+                              builder: (context) =>
+                                  WebPage(url: selectedBookmark.url)));
                     },
                     onLongPress: () async {
                       showDialog(
@@ -62,8 +58,15 @@ class HomeBodyState extends State<HomeBody> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  ref.watch(bookmarkProvider).deleteValue(
-                                      refData[index].title, refData[index].url);
+                                  // ref.watch(bookmarkProvider).deleteValue(
+                                  //     state.data[index].title, state.data[index].url);
+                                  // state.bookmark.title.text =
+                                  //     state.data[index].title;
+                                  // state.bookmark.url.text =
+                                  //     state.data[index].url;
+                                  //理想はstateNotifier.delete(bookmark.id);としたい　bookmark = state.data[index]
+                                  stateNotifier
+                                      .deleteBookmark(selectedBookmark.id);
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(L10n.of(context).yes),

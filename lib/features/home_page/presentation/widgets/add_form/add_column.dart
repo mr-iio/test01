@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test01/features/home_page/presentation/providers/bookmark_state.dart';
 import 'package:test01/features/home_page/presentation/providers/home_page_provider.dart';
 
 class AddColumn extends StatefulWidget {

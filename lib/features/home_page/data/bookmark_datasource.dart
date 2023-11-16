@@ -4,7 +4,7 @@ import 'package:test01/shared/models/bookmark_models.dart';
 
 abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
   Future<void> saveValue(BookMarkController bookmark);
-  Future<void> deleteValue(BookMarkController bookmark);
+  Future<void> deleteBookmark(int id);
   Future<List<BookMark>> fetchDataFromDatabase();
 }
 
@@ -19,10 +19,8 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
 
   @override
 // データを削除
-  Future<void> deleteValue(BookMarkController bookmark) async {
-    await database!.delete('saved_values',
-        where: 'name = ? AND url = ?',
-        whereArgs: [bookmark.title.text, bookmark.url.text]);
+  Future<void> deleteBookmark(int id) async {
+    await database!.delete('saved_values', where: 'id = ?', whereArgs: [id]);
   }
 
   @override
@@ -32,6 +30,7 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
         await database!.query('saved_values');
     final List<BookMark> result = data
         .map((value) => BookMark(
+            id: value[BookMarkColumns.id],
             title: value[BookMarkColumns.title],
             url: value[BookMarkColumns.url]))
         .toList();

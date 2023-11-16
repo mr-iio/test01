@@ -15,7 +15,7 @@ class _WebBottomNavigationBarState extends State<WebBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final state = ref.watch(webPageController);
+        final state = ref.watch(webPageNotifierProvider);
         return BottomNavigationBar(
           selectedItemColor: Colors.pink,
           items: [
@@ -34,21 +34,24 @@ class _WebBottomNavigationBarState extends State<WebBottomNavigationBar> {
                 icon: const Icon(Icons.close), label: L10n.of(context).close),
           ],
           type: BottomNavigationBarType.fixed,
-          currentIndex: ref.watch(selectedButtonNumber),
+          currentIndex: state.selectedButtonNumber,
+          // ref.watch(selectedButtonNumber)
           onTap: (index) async {
-            ref.read(selectedButtonNumber.notifier).state = index;
+            // ref.read(selectedButtonNumber.notifier).state = index;
+            ref.read(webPageNotifierProvider.notifier).nextIndex(index);
             if (index == 0) {
-              if (await state.canGoBack()) {
-                state.goBack();
+              if (await state.webPageController.canGoBack()) {
+                state.webPageController.goBack();
               }
             } else if (index == 1) {
-              if (await state.canGoForward()) {
-                state.goForward();
+              if (await state.webPageController.canGoForward()) {
+                state.webPageController.goForward();
               }
             } else if (index == 2) {
-              state.reload();
+              state.webPageController.reload();
             } else {
-              ref.refresh(webPageController.notifier).state;
+              // ref.refresh(webPageController.notifier).state;
+              ref.refresh(webPageNotifierProvider).webPageController;
               Navigator.pop(context);
             }
           },
