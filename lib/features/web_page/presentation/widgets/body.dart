@@ -3,44 +3,61 @@ import 'package:test01/features/web_page/presentation/providers/web_page_provide
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WebBody extends StatefulWidget {
+class WebBody extends ConsumerStatefulWidget {
   final String url;
   const WebBody({Key? key, required this.url}) : super(key: key);
 
   @override
-  State<WebBody> createState() => _WebBodyState();
+  ConsumerState<WebBody> createState() => _WebBodyState();
 }
 
-class _WebBodyState extends State<WebBody> {
+class _WebBodyState extends ConsumerState<WebBody> {
+  bool isLoading = true;
+  @override
+  void initState() {
+    super.initState();
+    final state = ref.read(webPageNotifierProvider);
+    final notifier = ref.read(webPageNotifierProvider.notifier);
+    // webviewcontrollerの詳細
+    state.webPageController
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (_) {
+          if (mounted) {
+            setState(() {
+              isLoading = true;
+            });
+          }
+        },
+        onPageFinished: (_) {
+          if (mounted) {
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
+        onUrlChange: (_) async {
+          notifier.setCanGoState();
+        },
+      ))
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(widget.url));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        // webviewControllerはref.watch()ではダメ
-        final state = ref.read(webPageNotifierProvider);
-        final notifier = ref.read(webPageNotifierProvider.notifier);
-        final selectedUrl = widget.url;
-        // webviewcontrollerの詳細
-        state.webPageController
-          ..setNavigationDelegate(NavigationDelegate(
-            onUrlChange: (_) async {
-              if (await state.webPageController.canGoBack()) {
-                notifier.canGoBack(true);
-              } else {
-                notifier.canGoBack(false);
-              }
-              if (await state.webPageController.canGoForward()) {
-                notifier.canGoForward(true);
-              } else {
-                notifier.canGoForward(false);
-              }
-            },
-          ))
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..loadRequest(Uri.parse(selectedUrl));
-
-        return WebViewWidget(controller: state.webPageController);
-      },
+    final state = ref.watch(webPageNotifierProvider);
+    return Column(
+      children: [
+        isLoading
+            ? const LinearProgressIndicator(
+                color: Colors.red,
+                backgroundColor: Colors.grey,
+              )
+            : const SizedBox.shrink(),
+        Expanded(
+          child: WebViewWidget(controller: state.webPageController),
+        ),
+      ],
     );
   }
 }

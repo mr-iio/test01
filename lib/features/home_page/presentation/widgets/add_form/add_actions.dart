@@ -23,6 +23,7 @@ class AddCalcenAction extends ConsumerWidget {
 // 登録時のアクション
 class AddRegistAction extends ConsumerWidget {
   const AddRegistAction({super.key});
+
   @override
   Widget build(BuildContext context, ref) {
     final state = ref.watch(bookmarkNotifierProvider);

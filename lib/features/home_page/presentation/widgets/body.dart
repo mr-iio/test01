@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeBody extends ConsumerWidget {
   const HomeBody({super.key});
+
   @override
   Widget build(BuildContext context, ref) {
     final notifier = ref.watch(bookmarkNotifierProvider.notifier);

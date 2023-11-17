@@ -11,11 +11,11 @@ class WebPageNotifier extends Notifier<WebPageState> {
     return WebPageState(webPageController: WebViewController());
   }
 
-  void canGoBack(bool bool) {
+  void setCanGoState() async {
     state = WebPageState(
         webPageController: state.webPageController,
-        canGoBack: bool,
-        canGoForward: state.canGoForward);
+        canGoBack: await state.webPageController.canGoBack(),
+        canGoForward: await state.webPageController.canGoForward());
   }
 
   void canGoForward(bool bool) {
