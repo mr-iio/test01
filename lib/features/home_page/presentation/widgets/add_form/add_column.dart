@@ -21,13 +21,13 @@ class _AddColumnState extends State<AddColumn> {
             decoration: InputDecoration(
               labelText: L10n.of(context).title,
             ),
-            controller: state.bookmark.title,
+            controller: state.bookmarkFormController.title,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: L10n.of(context).url,
             ),
-            controller: state.bookmark.url,
+            controller: state.bookmarkFormController.url,
             validator: (value) {
               if (value == '') {
                 return L10n.of(context).url + L10n.of(context).required;

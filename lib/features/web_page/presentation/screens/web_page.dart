@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:test01/features/web_page/presentation/widgets/body.dart';
 import 'package:test01/features/web_page/presentation/widgets/bottom_appbar.dart';
-import 'package:test01/features/web_page/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test01/shared/models/bookmark_models.dart';
 
 class WebPage extends StatefulWidget {
-  final String url;
-  const WebPage({Key? key, required this.url}) : super(key: key);
+  final Bookmark bookmarkFormController;
+  const WebPage({Key? key, required this.bookmarkFormController})
+      : super(key: key);
   @override
   State<WebPage> createState() => _WebPageState();
 }
@@ -14,12 +15,13 @@ class WebPage extends StatefulWidget {
 class _WebPageState extends State<WebPage> {
   @override
   Widget build(BuildContext context) {
-    final selectedUrl = widget.url;
+    final selectedTitle = widget.bookmarkFormController.title;
+    final selectedUrl = widget.bookmarkFormController.url;
     return Consumer(
       builder: (context, ref, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(selectedUrl),
+            title: Text(selectedTitle),
             automaticallyImplyLeading: false,
           ),
           body: WebBody(url: selectedUrl),

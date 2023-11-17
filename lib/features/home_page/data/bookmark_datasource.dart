@@ -3,17 +3,22 @@ import 'package:test01/shared/data/database_helper.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 
 abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
-  Future<void> saveBookmark(BookMarkController bookmark);
+  Future<void> saveBookmark(BookmarkFormController bookmarkFormController);
   Future<void> deleteBookmark(int id);
-  Future<List<BookMark>> fetchDataFromDatabase();
+  Future<List<Bookmark>> fetchDataFromDatabase();
 }
 
 class BookmarkLocalDatasource extends BookmarkDatasource {
   @override
   // データベースに値を保存
-  Future<void> saveBookmark(BookMarkController bookmark) async {
+  Future<void> saveBookmark(
+      BookmarkFormController bookmarkFormController) async {
     await database!.insert(
-        'saved_values', {'name': bookmark.title.text, 'url': bookmark.url.text},
+        'saved_values',
+        {
+          'name': bookmarkFormController.title.text,
+          'url': bookmarkFormController.url.text
+        },
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
@@ -25,14 +30,14 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
 
   @override
 // データを取得
-  Future<List<BookMark>> fetchDataFromDatabase() async {
+  Future<List<Bookmark>> fetchDataFromDatabase() async {
     final List<Map<String, dynamic>> data =
         await database!.query('saved_values');
-    final List<BookMark> result = data
-        .map((value) => BookMark(
-            id: value[BookMarkColumns.id],
-            title: value[BookMarkColumns.title],
-            url: value[BookMarkColumns.url]))
+    final List<Bookmark> result = data
+        .map((value) => Bookmark(
+            id: value[BookmarkColumns.id],
+            title: value[BookmarkColumns.title],
+            url: value[BookmarkColumns.url]))
         .toList();
     return result;
   }

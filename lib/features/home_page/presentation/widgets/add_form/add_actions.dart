@@ -17,14 +17,10 @@ class _AddCalcenActionState extends State<AddCalcenAction> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final stateRefresh = ref.refresh(bookmarkNotifierProvider);
         return TextButton(
           child: Text(L10n.of(context).cancel),
           onPressed: () {
-            // ref.refresh(titleController.notifier).state;
-            // ref.refresh(urlController.notifier).state;
-            stateRefresh.bookmark.title;
-            stateRefresh.bookmark.url;
+            ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
             Navigator.pop(context);
           },
         );
@@ -48,24 +44,19 @@ class _AddRegistActionState extends State<AddRegistAction> {
     return Consumer(
       builder: (context, ref, child) {
         final state = ref.watch(bookmarkNotifierProvider);
-        final stateNotifier = ref.watch(bookmarkNotifierProvider.notifier);
-        //なぜかstateRefreshでエラーが出る
-        // final stateRefresh = ref.refresh(bookmarkNotifierProvider);
+        final notifier = ref.watch(bookmarkNotifierProvider.notifier);
         return TextButton(
           child: Text(L10n.of(context).regist),
           onPressed: () {
-            title = state.bookmark.title.text;
-            url = state.bookmark.url.text;
+            title = state.bookmarkFormController.title.text;
+            url = state.bookmarkFormController.url.text;
             // タイトルが空白の場合は代わりに'タイトル'を入力する
             if (title == '') {
               title = L10n.of(context).title;
             }
             if (addKey.currentState!.validate()) {
               try {
-                // ref
-                //     .read(bookmarkProvider)
-                //     .saveValue(title, ref.read(urlController).text);
-                stateNotifier.saveBookmark(state.bookmark);
+                notifier.saveBookmark(state.bookmarkFormController);
               } on FormatException {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -73,10 +64,7 @@ class _AddRegistActionState extends State<AddRegistAction> {
                   ),
                 );
               }
-              // ref.refresh(titleController.notifier).state;
-              // ref.refresh(urlController.notifier).state;
-              // stateRefresh.bookmark;
-              ref.refresh(bookmarkNotifierProvider).bookmark;
+              ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

@@ -17,80 +17,45 @@ class _WebBottomAppBarState extends State<WebBottomAppBar> {
       builder: (context, ref, child) {
         final state = ref.watch(webPageNotifierProvider);
         return BottomAppBar(
+            height: 60,
             child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () async {
-                if (await state.webPageController.canGoBack()) {
-                  state.webPageController.goBack();
-                }
-              },
-              icon: const Icon(Icons.arrow_back),
-            ),
-            IconButton(
-              onPressed: () async {
-                (await state.webPageController.canGoForward())
-                    ? (state.webPageController.goForward())
-                    : null;
-              },
-              icon: const Icon(Icons.arrow_forward),
-            ),
-            IconButton(
-              onPressed: () async {
-                state.webPageController.reload();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            IconButton(
-              onPressed: () {
-                ref.refresh(webPageNotifierProvider).webPageController;
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.close),
-            )
-          ],
-        ));
-        // BottomNavigationBar(
-        //   selectedItemColor: Colors.pink,
-        //   items: [
-        //     BottomNavigationBarItem(
-        //       icon: const Icon(Icons.arrow_back),
-        //       label: L10n.of(context).back,
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: const Icon(Icons.arrow_forward),
-        //       label: L10n.of(context).forward,
-        //     ),
-        //     BottomNavigationBarItem(
-        //         icon: const Icon(Icons.refresh),
-        //         label: L10n.of(context).reload),
-        //     BottomNavigationBarItem(
-        //         icon: const Icon(Icons.close), label: L10n.of(context).close),
-        //   ],
-        //   type: BottomNavigationBarType.fixed,
-        //   currentIndex: state.selectedButtonNumber,
-        //   // ref.watch(selectedButtonNumber)
-        //   onTap: (index) async {
-        //     // ref.read(selectedButtonNumber.notifier).state = index;
-        //     ref.read(webPageNotifierProvider.notifier).nextIndex(index);
-        //     if (index == 0) {
-        //       if (await state.webPageController.canGoBack()) {
-        //         state.webPageController.goBack();
-        //       }
-        //     } else if (index == 1) {
-        //       if (await state.webPageController.canGoForward()) {
-        //         state.webPageController.goForward();
-        //       }
-        //     } else if (index == 2) {
-        //       state.webPageController.reload();
-        //     } else {
-        //       // ref.refresh(webPageController.notifier).state;
-        //       ref.refresh(webPageNotifierProvider).webPageController;
-        //       Navigator.pop(context);
-        //     }
-        //   },
-        // );
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton.icon(
+                  onPressed: (state.canGoBack)
+                      ? () {
+                          state.webPageController.goBack();
+                        }
+                      : null,
+                  icon: const Icon(Icons.arrow_back),
+                  label: Text(L10n.of(context).back),
+                ),
+                TextButton.icon(
+                  onPressed: (state.canGoForward)
+                      ? () {
+                          state.webPageController.goForward();
+                        }
+                      : null,
+                  icon: const Icon(Icons.arrow_forward),
+                  label: Text(L10n.of(context).forward),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    state.webPageController.reload();
+                  },
+                  icon: const Icon(Icons.refresh),
+                  label: Text(L10n.of(context).reload),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    ref.refresh(webPageNotifierProvider).webPageController;
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close),
+                  label: Text(L10n.of(context).close),
+                )
+              ],
+            ));
       },
     );
   }

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class BookMark {
+class Bookmark {
   final int id;
   final String title;
   final String url;
-  const BookMark({this.id = 0, this.title = '', this.url = ''});
+  const Bookmark({this.id = 0, this.title = '', this.url = ''});
 }
 
-class BookMarkController {
+class BookmarkFormController {
   final TextEditingController title;
   final TextEditingController url;
-  const BookMarkController({required this.title, required this.url});
+  const BookmarkFormController({required this.title, required this.url});
 }
 
-class BookMarkColumns {
+class BookmarkColumns {
   static const String id = 'id';
   static const String title = 'name';
   static const String url = 'url';

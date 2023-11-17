@@ -15,13 +15,10 @@ class HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final stateNotifier = ref.watch(bookmarkNotifierProvider.notifier);
+        final notifier = ref.watch(bookmarkNotifierProvider.notifier);
         final state = ref.watch(bookmarkNotifierProvider);
-        //   await initializeDatabase();
-        //   List<BookMark> result = await fetchDataFromDatabase();
-        //   ref.watch(data.notifier).state = result;
         Future(() async {
-          await stateNotifier.data();
+          await notifier.data();
         });
         return (state.data.isNotEmpty)
             ? ListView.separated(
@@ -40,8 +37,8 @@ class HomeBodyState extends State<HomeBody> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  WebPage(url: selectedBookmark.url)));
+                              builder: (context) => WebPage(
+                                  bookmarkFormController: selectedBookmark)));
                     },
                     onLongPress: () async {
                       showDialog(
@@ -58,15 +55,7 @@ class HomeBodyState extends State<HomeBody> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // ref.watch(bookmarkProvider).deleteValue(
-                                  //     state.data[index].title, state.data[index].url);
-                                  // state.bookmark.title.text =
-                                  //     state.data[index].title;
-                                  // state.bookmark.url.text =
-                                  //     state.data[index].url;
-                                  //理想はstateNotifier.delete(bookmark.id);としたい　bookmark = state.data[index]
-                                  stateNotifier
-                                      .deleteBookmark(selectedBookmark.id);
+                                  notifier.deleteBookmark(selectedBookmark.id);
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(L10n.of(context).yes),

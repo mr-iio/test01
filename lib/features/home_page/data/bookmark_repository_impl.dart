@@ -12,8 +12,8 @@ class BookmarkRepositoryImpl extends BookmarkRepository {
   }
 
   @override
-  Future<void> saveBookmark(BookMarkController bookmark) {
-    return datasource.saveBookmark(bookmark);
+  Future<void> saveBookmark(BookmarkFormController bookmarkFormController) {
+    return datasource.saveBookmark(bookmarkFormController);
   }
 
   @override
@@ -22,7 +22,7 @@ class BookmarkRepositoryImpl extends BookmarkRepository {
   }
 
   @override
-  Future<List<BookMark>> fetchDataFromDatabase() {
+  Future<List<Bookmark>> fetchDataFromDatabase() {
     return datasource.fetchDataFromDatabase();
   }
 }
