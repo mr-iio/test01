@@ -5,75 +5,55 @@ import 'package:test01/features/home_page/presentation/providers/home_page_provi
 import 'package:test01/shared/globals.dart';
 
 // キャンセル時のアクション
-class AddCalcenAction extends StatefulWidget {
+class AddCalcenAction extends ConsumerWidget {
   const AddCalcenAction({super.key});
 
   @override
-  State<AddCalcenAction> createState() => _AddCalcenActionState();
-}
-
-class _AddCalcenActionState extends State<AddCalcenAction> {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        return TextButton(
-          child: Text(L10n.of(context).cancel),
-          onPressed: () {
-            ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
-            Navigator.pop(context);
-          },
-        );
+  Widget build(BuildContext context, ref) {
+    return TextButton(
+      child: Text(L10n.of(context).cancel),
+      onPressed: () {
+        ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
+        Navigator.pop(context);
       },
     );
   }
 }
 
 // 登録時のアクション
-class AddRegistAction extends StatefulWidget {
+class AddRegistAction extends ConsumerWidget {
   const AddRegistAction({super.key});
   @override
-  State<AddRegistAction> createState() => _AddRegistActionState();
-}
-
-class _AddRegistActionState extends State<AddRegistAction> {
-  var title = '';
-  var url = '';
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final state = ref.watch(bookmarkNotifierProvider);
-        final notifier = ref.watch(bookmarkNotifierProvider.notifier);
-        return TextButton(
-          child: Text(L10n.of(context).regist),
-          onPressed: () {
-            title = state.bookmarkFormController.title.text;
-            url = state.bookmarkFormController.url.text;
-            // タイトルが空白の場合は代わりに'タイトル'を入力する
-            if (title == '') {
-              title = L10n.of(context).title;
-            }
-            if (addKey.currentState!.validate()) {
-              try {
-                notifier.saveBookmark(state.bookmarkFormController);
-              } on FormatException {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(title + L10n.of(context).failureRegist),
-                  ),
-                );
-              }
-              ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(title + L10n.of(context).successRegist),
-                ),
-              );
-            }
-          },
-        );
+  Widget build(BuildContext context, ref) {
+    final state = ref.watch(bookmarkNotifierProvider);
+    final notifier = ref.watch(bookmarkNotifierProvider.notifier);
+    return TextButton(
+      child: Text(L10n.of(context).regist),
+      onPressed: () {
+        // タイトルが空白の場合は代わりに'タイトル'を入力する
+        if (state.bookmarkFormController.title.text == '') {
+          state.bookmarkFormController.title.text = L10n.of(context).title;
+        }
+        if (addKey.currentState!.validate()) {
+          try {
+            notifier.saveBookmark(state.bookmarkFormController);
+          } on FormatException {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.bookmarkFormController.title.text +
+                    L10n.of(context).failureRegist),
+              ),
+            );
+          }
+          ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.bookmarkFormController.title.text +
+                  L10n.of(context).successRegist),
+            ),
+          );
+        }
       },
     );
   }

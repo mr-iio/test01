@@ -11,23 +11,24 @@ class BookmarkNotifier extends Notifier<BookmarkState> {
   @override
   BookmarkState build() {
     return BookmarkState(
-        bookmark: BookmarkController(
+        bookmarkFormController: BookmarkFormController(
             title: TextEditingController(), url: TextEditingController()));
   }
 
-  Future<void> data() async {
+  Future<void> fetchBookmarks() async {
     final repository = ref.read(bookmarkDBProvider);
     await repository.initializeDatabase();
     final List<Bookmark> nextData = await repository.fetchDataFromDatabase();
     state = BookmarkState(
-      bookmark: state.bookmark,
+      bookmarkFormController: state.bookmarkFormController,
       data: nextData,
     );
   }
 
-  Future<void> saveBookmark(BookmarkController bookmark) async {
+  Future<void> saveBookmark(
+      BookmarkFormController bookmarkFormController) async {
     final repository = ref.read(bookmarkDBProvider);
-    await repository.saveBookmark(bookmark);
+    await repository.saveBookmark(bookmarkFormController);
   }
 
   Future<void> deleteBookmark(int id) async {
