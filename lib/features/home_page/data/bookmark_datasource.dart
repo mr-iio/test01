@@ -3,7 +3,7 @@ import 'package:test01/shared/data/database_helper.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 
 abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
-  Future<void> saveValue(BookMarkController bookmark);
+  Future<void> saveBookmark(BookMarkController bookmark);
   Future<void> deleteBookmark(int id);
   Future<List<BookMark>> fetchDataFromDatabase();
 }
@@ -11,7 +11,7 @@ abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
 class BookmarkLocalDatasource extends BookmarkDatasource {
   @override
   // データベースに値を保存
-  Future<void> saveValue(BookMarkController bookmark) async {
+  Future<void> saveBookmark(BookMarkController bookmark) async {
     await database!.insert(
         'saved_values', {'name': bookmark.title.text, 'url': bookmark.url.text},
         conflictAlgorithm: ConflictAlgorithm.replace);

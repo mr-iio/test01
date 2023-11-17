@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test01/features/web_page/presentation/widgets/body.dart';
+import 'package:test01/features/web_page/presentation/widgets/bottom_appbar.dart';
 import 'package:test01/features/web_page/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,7 +23,7 @@ class _WebPageState extends State<WebPage> {
             automaticallyImplyLeading: false,
           ),
           body: WebBody(url: selectedUrl),
-          bottomNavigationBar: const WebBottomNavigationBar(),
+          bottomNavigationBar: const WebBottomAppBar(),
         );
       },
     );

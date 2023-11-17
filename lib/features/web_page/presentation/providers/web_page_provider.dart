@@ -34,10 +34,4 @@ class WebPageNotifier extends Notifier<WebPageState> {
   WebPageState build() {
     return WebPageState(webPageController: WebViewController());
   }
-
-  void nextIndex(index) {
-    state = WebPageState(
-        webPageController: state.webPageController,
-        selectedButtonNumber: index);
-  }
 }

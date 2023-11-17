@@ -12,13 +12,13 @@ class BookmarkRepositoryImpl extends BookmarkRepository {
   }
 
   @override
-  Future<void> saveValue(BookMarkController bookmark) {
-    return datasource.saveValue(bookmark);
+  Future<void> saveBookmark(BookMarkController bookmark) {
+    return datasource.saveBookmark(bookmark);
   }
 
   @override
-  Future<void> deleteValue(int id) {
-    return datasource.deleteValue(id);
+  Future<void> deleteBookmark(int id) {
+    return datasource.deleteBookmark(id);
   }
 
   @override
