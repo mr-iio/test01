@@ -39,6 +39,19 @@ class AddRegistAction extends ConsumerWidget {
         if (addKey.currentState!.validate()) {
           try {
             notifier.saveBookmark(state.bookmarkFormController);
+            notifier.resetController();
+            Future(
+              () async {
+                await notifier.fetchBookmarks();
+              },
+            );
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.bookmarkFormController.title.text +
+                    L10n.of(context).successRegist),
+              ),
+            );
           } on FormatException {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -47,19 +60,6 @@ class AddRegistAction extends ConsumerWidget {
               ),
             );
           }
-          notifier.resetController();
-          Future(
-            () async {
-              await notifier.fetchBookmarks();
-            },
-          );
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.bookmarkFormController.title.text +
-                  L10n.of(context).successRegist),
-            ),
-          );
         }
       },
     );
