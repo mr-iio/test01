@@ -19,7 +19,7 @@ class BookmarkNotifier extends Notifier<BookmarkState> {
   Future<List<Bookmark>> _fetchBookmarks() async {
     final repository = ref.read(bookmarkDBProvider);
     await repository.initializeDatabase();
-    return await repository.fetchDataFromDatabase();
+    return await repository.fetchBookmarks();
   }
 
   Future<void> fetchBookmarks() async {
@@ -32,13 +32,11 @@ class BookmarkNotifier extends Notifier<BookmarkState> {
       BookmarkFormController bookmarkFormController) async {
     final repository = ref.read(bookmarkDBProvider);
     await repository.saveBookmark(bookmarkFormController);
-    await fetchBookmarks();
   }
 
   Future<void> deleteBookmark(int id) async {
     final repository = ref.read(bookmarkDBProvider);
     await repository.deleteBookmark(id);
-    await fetchBookmarks();
   }
 
   Future<void> resetController() async {

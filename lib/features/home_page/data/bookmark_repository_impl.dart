@@ -22,7 +22,7 @@ class BookmarkRepositoryImpl extends BookmarkRepository {
   }
 
   @override
-  Future<List<Bookmark>> fetchDataFromDatabase() {
-    return datasource.fetchDataFromDatabase();
+  Future<List<Bookmark>> fetchBookmarks() {
+    return datasource.fetchBookmarks();
   }
 }

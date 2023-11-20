@@ -6,7 +6,7 @@ import 'package:test01/shared/models/bookmark_models.dart';
 abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
   Future<void> saveBookmark(BookmarkFormController bookmarkFormController);
   Future<void> deleteBookmark(int id);
-  Future<List<Bookmark>> fetchDataFromDatabase();
+  Future<List<Bookmark>> fetchBookmarks();
 }
 
 class BookmarkLocalDatasource extends BookmarkDatasource {
@@ -31,7 +31,7 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
 
   @override
 // データを取得
-  Future<List<Bookmark>> fetchDataFromDatabase() async {
+  Future<List<Bookmark>> fetchBookmarks() async {
     final List<Map<String, dynamic>> data =
         await database!.query(savedDBValues);
     final List<Bookmark> result = data

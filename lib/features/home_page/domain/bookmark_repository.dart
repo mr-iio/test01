@@ -4,5 +4,5 @@ abstract class BookmarkRepository {
   Future<void> initializeDatabase();
   Future<void> saveBookmark(BookmarkFormController bookmarkFormController);
   Future<void> deleteBookmark(int id);
-  Future<List<Bookmark>> fetchDataFromDatabase();
+  Future<List<Bookmark>> fetchBookmarks();
 }
