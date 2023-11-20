@@ -27,7 +27,7 @@ class AddColumn extends ConsumerWidget {
           if (value == '' || !urlReg.hasMatch(value!)) {
             return L10n.of(context).url + L10n.of(context).required;
           }
-          if (value.length > 2000) {
+          if (value.length > maxUrlLength) {
             return L10n.of(context).url + L10n.of(context).tooLong;
           }
           return null;
