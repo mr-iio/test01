@@ -9,6 +9,7 @@ class WebBottomAppBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final state = ref.watch(webPageNotifierProvider);
+    final notifier = ref.watch(webPageNotifierProvider.notifier);
     return BottomAppBar(
       height: 60,
       child: Row(
@@ -41,7 +42,7 @@ class WebBottomAppBar extends ConsumerWidget {
           ),
           TextButton.icon(
             onPressed: () {
-              ref.refresh(webPageNotifierProvider).webPageController;
+              notifier.resetWebPageController();
               Navigator.pop(context);
             },
             icon: const Icon(Icons.close),

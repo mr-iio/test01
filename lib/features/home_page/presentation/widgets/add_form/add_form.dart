@@ -16,7 +16,7 @@ class AddForm extends StatelessWidget {
         content: const SingleChildScrollView(
           child: AddColumn(),
         ),
-        actions: const [AddCalcenAction(), AddRegistAction()],
+        actions: const [AddCancelAction(), AddRegistAction()],
       ),
     );
   }

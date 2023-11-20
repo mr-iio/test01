@@ -5,15 +5,16 @@ import 'package:test01/features/home_page/presentation/providers/home_page_provi
 import 'package:test01/shared/globals.dart';
 
 // キャンセル時のアクション
-class AddCalcenAction extends ConsumerWidget {
-  const AddCalcenAction({super.key});
+class AddCancelAction extends ConsumerWidget {
+  const AddCancelAction({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
+    final notifier = ref.watch(bookmarkNotifierProvider.notifier);
     return TextButton(
       child: Text(L10n.of(context).cancel),
       onPressed: () {
-        ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
+        notifier.resetController();
         Navigator.pop(context);
       },
     );
@@ -46,7 +47,7 @@ class AddRegistAction extends ConsumerWidget {
               ),
             );
           }
-          ref.refresh(bookmarkNotifierProvider).bookmarkFormController;
+          notifier.resetController();
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

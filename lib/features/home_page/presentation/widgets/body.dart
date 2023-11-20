@@ -4,16 +4,24 @@ import 'package:test01/features/home_page/presentation/providers/home_page_provi
 import 'package:test01/features/web_page/presentation/screens/web_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeBody extends ConsumerWidget {
+class HomeBody extends ConsumerStatefulWidget {
   const HomeBody({super.key});
+  @override
+  ConsumerState<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends ConsumerState<HomeBody> {
+  @override
+  void initState() {
+    super.initState();
+    final notifier = ref.read(bookmarkNotifierProvider.notifier);
+    notifier.fetchBookmarks();
+  }
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context) {
     final notifier = ref.watch(bookmarkNotifierProvider.notifier);
     final state = ref.watch(bookmarkNotifierProvider);
-    Future(() async {
-      await notifier.fetchBookmarks();
-    });
     return (state.data.isNotEmpty)
         ? ListView.separated(
             itemCount: state.data.length,

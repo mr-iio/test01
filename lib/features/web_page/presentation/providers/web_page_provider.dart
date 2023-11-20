@@ -8,7 +8,17 @@ final webPageNotifierProvider =
 class WebPageNotifier extends Notifier<WebPageState> {
   @override
   WebPageState build() {
-    return WebPageState(webPageController: WebViewController());
+    return WebPageState(
+        webPageController: WebViewController(),
+        canGoBack: false,
+        canGoForward: false);
+  }
+
+  void resetWebPageController() {
+    state = WebPageState(
+        webPageController: WebViewController(),
+        canGoBack: state.canGoBack,
+        canGoForward: state.canGoForward);
   }
 
   void setCanGoState() async {
@@ -16,12 +26,5 @@ class WebPageNotifier extends Notifier<WebPageState> {
         webPageController: state.webPageController,
         canGoBack: await state.webPageController.canGoBack(),
         canGoForward: await state.webPageController.canGoForward());
-  }
-
-  void canGoForward(bool bool) {
-    state = WebPageState(
-        webPageController: state.webPageController,
-        canGoBack: state.canGoBack,
-        canGoForward: bool);
   }
 }
