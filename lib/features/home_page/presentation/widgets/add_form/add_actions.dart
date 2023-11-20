@@ -48,6 +48,11 @@ class AddRegistAction extends ConsumerWidget {
             );
           }
           notifier.resetController();
+          Future(
+            () async {
+              await notifier.fetchBookmarks();
+            },
+          );
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

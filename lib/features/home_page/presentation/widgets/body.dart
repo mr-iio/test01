@@ -58,6 +58,11 @@ class _HomeBodyState extends ConsumerState<HomeBody> {
                           TextButton(
                             onPressed: () {
                               notifier.deleteBookmark(selectedBookmark.id);
+                              Future(
+                                () async {
+                                  await notifier.fetchBookmarks();
+                                },
+                              );
                               Navigator.of(context).pop();
                             },
                             child: Text(L10n.of(context).yes),
