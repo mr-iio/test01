@@ -1,20 +1,27 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:test01/shared/data/database_helper.dart';
 import 'package:test01/shared/globals.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 
-abstract class BookmarkDatasource extends BookmarkLocalDBHelper {
+abstract class BookmarkDatasource {
   Future<void> saveBookmark(BookmarkFormController bookmarkFormController);
   Future<void> deleteBookmark(int id);
   Future<List<Bookmark>> fetchBookmarks();
 }
 
 class BookmarkLocalDatasource extends BookmarkDatasource {
+  final BookmarkLocalDBHelper localDB;
+  BookmarkLocalDatasource(this.localDB);
+  // = BookmarkLocalDBHelper.instance;
+
   @override
   // データベースに値を保存
   Future<void> saveBookmark(
       BookmarkFormController bookmarkFormController) async {
-    await database!.insert(
+    final Database? db = await localDB.database;
+    await db!.insert(
         savedDBValues,
         {
           dbName: bookmarkFormController.title.text,
@@ -26,14 +33,16 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
   @override
 // データを削除
   Future<void> deleteBookmark(int id) async {
-    await database!.delete(savedDBValues, where: '$dbId = ?', whereArgs: [id]);
+    final Database? db = await localDB.database;
+    await db!.delete(savedDBValues, where: '$dbId = ?', whereArgs: [id]);
   }
 
   @override
 // データを取得
   Future<List<Bookmark>> fetchBookmarks() async {
-    final List<Map<String, dynamic>> data =
-        await database!.query(savedDBValues);
+    final Database? db = await localDB.database;
+    inspect(localDB.database);
+    final List<Map<String, dynamic>> data = await db!.query(savedDBValues);
     final List<Bookmark> result = data
         .map((value) => Bookmark(
             id: value[BookmarkColumns.id],

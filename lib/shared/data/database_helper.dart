@@ -2,13 +2,22 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class BookmarkLocalDBHelper {
-  Database? database;
+  // BookmarkLocalDBHelper._privateConstructor();
+  // static final BookmarkLocalDBHelper instance =
+  //     BookmarkLocalDBHelper._privateConstructor();
+  static Database? _database;
+
+  Future<Database?> get database async {
+    if (_database != null) return _database;
+    await initializeDatabase();
+    return _database;
+  }
 
 // データベースに接続
-  Future<void> initializeDatabase() async {
+  initializeDatabase() async {
     // データベースファイルのパスを取得
     String databasePath = join(await getDatabasesPath(), 'my_database.db');
-    database = await openDatabase(
+    _database = await openDatabase(
       databasePath,
       version: 1,
       // データベースが作成されたときに実行される初期化処理
