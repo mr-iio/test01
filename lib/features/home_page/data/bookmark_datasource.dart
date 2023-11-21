@@ -14,7 +14,6 @@ abstract class BookmarkDatasource {
 class BookmarkLocalDatasource extends BookmarkDatasource {
   final BookmarkLocalDBHelper localDB;
   BookmarkLocalDatasource(this.localDB);
-  // = BookmarkLocalDBHelper.instance;
 
   @override
   // データベースに値を保存

@@ -11,20 +11,60 @@ class WebPageNotifier extends Notifier<WebPageState> {
     return WebPageState(
         webPageController: WebViewController(),
         canGoBack: false,
-        canGoForward: false);
+        canGoForward: false,
+        isLoading: true);
   }
 
   void resetWebPageController() {
     state = WebPageState(
         webPageController: WebViewController(),
         canGoBack: state.canGoBack,
-        canGoForward: state.canGoForward);
+        canGoForward: state.canGoForward,
+        isLoading: state.isLoading);
   }
 
-  void setCanGoState() async {
+  Future<void> setCanGoState() async {
     state = WebPageState(
         webPageController: state.webPageController,
         canGoBack: await state.webPageController.canGoBack(),
-        canGoForward: await state.webPageController.canGoForward());
+        canGoForward: await state.webPageController.canGoForward(),
+        isLoading: state.isLoading);
+  }
+
+  void startLoading() {
+    state = WebPageState(
+        webPageController: state.webPageController,
+        canGoBack: state.canGoBack,
+        canGoForward: state.canGoForward,
+        isLoading: true);
+  }
+
+  void endLoading() {
+    state = WebPageState(
+        webPageController: state.webPageController,
+        canGoBack: state.canGoBack,
+        canGoForward: state.canGoForward,
+        isLoading: false);
+  }
+
+  Future<void> setWebPageController(String url) async {
+    state = WebPageState(
+        webPageController: state.webPageController
+          ..setNavigationDelegate(NavigationDelegate(
+            onPageStarted: (_) {
+              startLoading();
+            },
+            onPageFinished: (_) {
+              endLoading();
+            },
+            onUrlChange: (_) {
+              setCanGoState();
+            },
+          ))
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..loadRequest(Uri.parse(url)),
+        canGoBack: state.canGoBack,
+        canGoForward: state.canGoForward,
+        isLoading: state.isLoading);
   }
 }
