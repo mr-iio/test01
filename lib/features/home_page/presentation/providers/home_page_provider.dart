@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test01/features/home_page/domain/book_mark_provider.dart';
 import 'package:test01/features/home_page/presentation/providers/bookmark_state.dart';
+import 'package:test01/shared/data/database_helper.dart';
 import 'package:test01/shared/models/bookmark_models.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,9 @@ class BookmarkNotifier extends Notifier<BookmarkState> {
   }
 
   Future<List<Bookmark>> _fetchBookmarks() async {
+    final dbHelper = BookmarkLocalDBHelper();
+    dbHelper.initializeDatabase();
     final repository = ref.read(bookmarkDBProvider);
-    await repository.initializeDatabase();
     return await repository.fetchBookmarks();
   }
 

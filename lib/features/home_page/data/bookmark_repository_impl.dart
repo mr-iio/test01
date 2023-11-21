@@ -7,11 +7,6 @@ class BookmarkRepositoryImpl extends BookmarkRepository {
   BookmarkRepositoryImpl(this.datasource);
 
   @override
-  Future<void> initializeDatabase() {
-    return datasource.initializeDatabase();
-  }
-
-  @override
   Future<void> saveBookmark(BookmarkFormController bookmarkFormController) {
     return datasource.saveBookmark(bookmarkFormController);
   }
