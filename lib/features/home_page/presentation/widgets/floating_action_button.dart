@@ -9,9 +9,7 @@ class HomeFloatingActionButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () async {
         await showDialog<void>(
-            context: context,
-            builder: (context) => const Scaffold(
-                backgroundColor: Colors.transparent, body: AddForm()));
+            context: context, builder: (context) => const AddForm());
       },
       child: const Icon(Icons.add),
     );
