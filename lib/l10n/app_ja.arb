@@ -5,7 +5,7 @@
     "deleteConf": "削除しますか?",
     "cancel": "キャンセル",
     "yes": "はい",
-    "noDataOrLoading": "何も登録されていません、若しくはロード中かも",
+    "noDataOrLoading": "データがありません、若しくはロード中です",
     "addTitle": "ブックマーク登録",
     "title": "タイトル",
     "url": "URL",
@@ -17,5 +17,6 @@
     "back": "戻る",
     "forward": "進む",
     "reload": "更新",
-    "close": "終了"
+    "close": "終了",
+    "maxBookmark": "登録できるのは20件までです"
 }
