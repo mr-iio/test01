@@ -7,7 +7,7 @@ class BookmarkLocalDBHelper {
       BookmarkLocalDBHelper._internal();
   static Database? _database;
 
-  Future get database async {
+  Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await initDatabase();
     return _database!;

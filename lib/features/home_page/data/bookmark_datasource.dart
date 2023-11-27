@@ -17,7 +17,7 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
   // データベースに値を保存
   Future<void> saveBookmark(
       BookmarkFormController bookmarkFormController) async {
-    final Database db = await localDB.database;
+    final db = await localDB.database;
     await db.insert(
         savedDBValues,
         {
@@ -30,14 +30,14 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
   @override
 // データを削除
   Future<void> deleteBookmark(int id) async {
-    final Database db = await localDB.database;
+    final db = await localDB.database;
     await db.delete(savedDBValues, where: '$dbId = ?', whereArgs: [id]);
   }
 
   @override
 // データを取得
   Future<List<Bookmark>> fetchBookmarks() async {
-    final Database db = await localDB.database;
+    final db = await localDB.database;
     final List<Map<String, dynamic>> data = await db.query(savedDBValues);
     final List<Bookmark> result = data
         .map((value) => Bookmark(
