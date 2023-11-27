@@ -16,13 +16,13 @@ class AddColumn extends ConsumerWidget {
         decoration: InputDecoration(
           labelText: L10n.of(context).title,
         ),
-        controller: state.bookmarkFormController.title,
+        controller: state.value!.bookmarkFormController.title,
       ),
       TextFormField(
         decoration: InputDecoration(
           labelText: L10n.of(context).url,
         ),
-        controller: state.bookmarkFormController.url,
+        controller: state.value!.bookmarkFormController.url,
         validator: (value) {
           if (value == '' || !urlReg.hasMatch(value!)) {
             return L10n.of(context).url + L10n.of(context).required;

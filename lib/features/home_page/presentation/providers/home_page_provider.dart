@@ -5,15 +5,16 @@ import 'package:test01/shared/models/bookmark_models.dart';
 import 'package:flutter/material.dart';
 
 final bookmarkNotifierProvider =
-    NotifierProvider<BookmarkNotifier, BookmarkState>(BookmarkNotifier.new);
+    AsyncNotifierProvider<BookmarkNotifier, BookmarkState>(
+        BookmarkNotifier.new);
 
-class BookmarkNotifier extends Notifier<BookmarkState> {
+class BookmarkNotifier extends AsyncNotifier<BookmarkState> {
   @override
-  BookmarkState build() {
+  Future<BookmarkState> build() async {
     return BookmarkState(
         bookmarkFormController: BookmarkFormController(
             title: TextEditingController(), url: TextEditingController()),
-        data: const []);
+        data: await _fetchBookmarks());
   }
 
   Future<List<Bookmark>> _fetchBookmarks() async {
@@ -22,9 +23,11 @@ class BookmarkNotifier extends Notifier<BookmarkState> {
   }
 
   Future<void> fetchBookmarks() async {
-    state = BookmarkState(
-        bookmarkFormController: state.bookmarkFormController,
-        data: await _fetchBookmarks());
+    state = const AsyncLoading();
+    state = AsyncData(BookmarkState(
+      bookmarkFormController: state.value!.bookmarkFormController,
+      data: await _fetchBookmarks(),
+    ));
   }
 
   Future<void> saveBookmark(
@@ -39,9 +42,13 @@ class BookmarkNotifier extends Notifier<BookmarkState> {
   }
 
   Future<void> resetController() async {
-    state = BookmarkState(
-        bookmarkFormController: BookmarkFormController(
-            title: TextEditingController(), url: TextEditingController()),
-        data: state.data);
+    state = const AsyncLoading();
+    state = AsyncData(BookmarkState(
+      bookmarkFormController: BookmarkFormController(
+        title: TextEditingController(),
+        url: TextEditingController(),
+      ),
+      data: state.value!.data,
+    ));
   }
 }

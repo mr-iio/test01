@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:test01/shared/data/database_helper.dart';
 import 'package:test01/shared/globals.dart';
@@ -40,7 +38,6 @@ class BookmarkLocalDatasource extends BookmarkDatasource {
 // データを取得
   Future<List<Bookmark>> fetchBookmarks() async {
     final Database? db = await localDB.database;
-    inspect(localDB.database);
     final List<Map<String, dynamic>> data = await db!.query(savedDBValues);
     final List<Bookmark> result = data
         .map((value) => Bookmark(

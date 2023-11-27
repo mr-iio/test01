@@ -12,7 +12,7 @@ class HomeFloatingActionButton extends ConsumerWidget {
     final state = ref.watch(bookmarkNotifierProvider);
     return FloatingActionButton(
       onPressed: () async {
-        if (state.data.length < 20) {
+        if (state.value!.data.length < 20) {
           await showDialog<void>(
               context: context, builder: (context) => const AddForm());
         } else {

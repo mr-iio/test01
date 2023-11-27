@@ -14,8 +14,8 @@ class AddCancelAction extends ConsumerWidget {
     return TextButton(
       child: Text(L10n.of(context).cancel),
       onPressed: () {
-        notifier.resetController();
         Navigator.pop(context);
+        notifier.resetController();
       },
     );
   }
@@ -33,29 +33,28 @@ class AddRegistAction extends ConsumerWidget {
       child: Text(L10n.of(context).regist),
       onPressed: () {
         // タイトルが空白の場合は代わりに'タイトル'を入力する
-        if (state.bookmarkFormController.title.text == '') {
-          state.bookmarkFormController.title.text = L10n.of(context).title;
+        if (state.value!.bookmarkFormController.title.text == '') {
+          state.value!.bookmarkFormController.title.text =
+              L10n.of(context).title;
         }
         if (addKey.currentState!.validate()) {
           try {
-            notifier.saveBookmark(state.bookmarkFormController);
-            notifier.resetController();
-            Future(
-              () async {
-                await notifier.fetchBookmarks();
-              },
-            );
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.bookmarkFormController.title.text +
-                    L10n.of(context).successRegist),
-              ),
-            );
+            notifier
+                .saveBookmark(state.value!.bookmarkFormController)
+                .then((_) {
+              notifier.fetchBookmarks().then((_) => notifier.resetController());
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.value!.bookmarkFormController.title.text +
+                      L10n.of(context).successRegist),
+                ),
+              );
+            });
           } on FormatException {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.bookmarkFormController.title.text +
+                content: Text(state.value!.bookmarkFormController.title.text +
                     L10n.of(context).failureRegist),
               ),
             );
