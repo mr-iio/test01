@@ -5,6 +5,6 @@ import 'package:test01/features/home_page/domain/bookmark_repository.dart';
 import 'package:test01/shared/data/database_helper.dart';
 
 final bookmarkDBProvider = Provider<BookmarkRepository>((ref) {
-  return BookmarkRepositoryImpl(
-      BookmarkLocalDatasource(BookmarkLocalDBHelper()));
+  final localDB = BookmarkLocalDBHelper.instance;
+  return BookmarkRepositoryImpl(BookmarkLocalDatasource(localDB));
 });

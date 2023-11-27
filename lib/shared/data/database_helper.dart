@@ -2,6 +2,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class BookmarkLocalDBHelper {
+  BookmarkLocalDBHelper._internal();
+  static final BookmarkLocalDBHelper instance =
+      BookmarkLocalDBHelper._internal();
   static Database? _database;
 
   Future get database async {
