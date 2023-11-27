@@ -16,7 +16,7 @@ class WebPage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: WebBody(url: bookmarkFormController.url),
-      bottomNavigationBar: const WebBottomAppBar(),
+      bottomNavigationBar: WebBottomAppBar(url: bookmarkFormController.url),
     );
   }
 }

@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test01/features/web_page/presentation/providers/web_page_provider.dart';
 
 class WebBottomAppBar extends ConsumerWidget {
-  const WebBottomAppBar({super.key});
+  final String url;
+  const WebBottomAppBar({Key? key, required this.url}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(webPageNotifierProvider);
-    final notifier = ref.watch(webPageNotifierProvider.notifier);
+    final state = ref.watch(webPageNotifierProvider(url));
     return BottomAppBar(
       height: 60,
       child: Row(
@@ -42,7 +42,6 @@ class WebBottomAppBar extends ConsumerWidget {
           ),
           TextButton.icon(
             onPressed: () {
-              notifier.resetWebPageController();
               Navigator.pop(context);
             },
             icon: const Icon(Icons.close),
