@@ -4,17 +4,17 @@ import 'package:path/path.dart';
 class BookmarkLocalDBHelper {
   static Database? _database;
 
-  Future<Database?> get database async {
-    if (_database != null) return _database;
-    await initializeDatabase();
-    return _database;
+  Future get database async {
+    if (_database != null) return _database!;
+    _database = await initDatabase();
+    return _database!;
   }
 
 // データベースに接続
-  initializeDatabase() async {
+  Future<Database> initDatabase() async {
     // データベースファイルのパスを取得
     String databasePath = join(await getDatabasesPath(), 'my_database.db');
-    _database = await openDatabase(
+    return await openDatabase(
       databasePath,
       version: 1,
       // データベースが作成されたときに実行される初期化処理
